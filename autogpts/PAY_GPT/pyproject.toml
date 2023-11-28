@@ -44,7 +44,6 @@ watchdog = "^3.0.0"
 mock = "^5.1.0"
 autoflake = "^2.2.0"
 pydevd-pycharm = "^233.6745.319"
-solana = "0.30.2"
 
 
 [build-system]

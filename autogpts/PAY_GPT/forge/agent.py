@@ -188,6 +188,7 @@ class ForgeAgent(Agent):
 
         # Set the step output to the "speak" part of the answer
         step.output = answer["thoughts"]["speak"]
+        step.output += str(output)
 
         # Return the completed step
         return step

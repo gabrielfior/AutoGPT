@@ -3,68 +3,15 @@ from typing import List
 from ..registry import ability
 
 @ability(
-    name="read_latest_slot",
-    description="Read latest slot from the Solana blockchain",
-    parameters=[],
-    output_type="str",
-)
-async def list_files(agent, task_id: str, path: str) -> List[str]:
-    """
-    List files in a workspace directory
-    """
-    return agent.workspace.list(task_id=task_id, path=str(path))
-
-
-@ability(
-    name="write_file",
-    description="Write data to a file",
-    parameters=[
-        {
-            "name": "file_path",
-            "description": "Path to the file",
-            "type": "string",
+    name="fetch_latest_slot",
+    description="Fetches latest slot from the Solana blockchain",
+    parameters=[{
+            "name": "timestamp",
+            "description": "Timestamp of the block being fetched",
+            "type": "int",
             "required": True,
-        },
-        {
-            "name": "data",
-            "description": "Data to write to the file",
-            "type": "bytes",
-            "required": True,
-        },
-    ],
-    output_type="None",
+        }],
+    output_type="int",
 )
-async def write_file(agent, task_id: str, file_path: str, data: bytes):
-    """
-    Write data to a file
-    """
-    if isinstance(data, str):
-        data = data.encode()
-
-    agent.workspace.write(task_id=task_id, path=file_path, data=data)
-    return await agent.db.create_artifact(
-        task_id=task_id,
-        file_name=file_path.split("/")[-1],
-        relative_path=file_path,
-        agent_created=True,
-    )
-
-
-@ability(
-    name="read_file",
-    description="Read data from a file",
-    parameters=[
-        {
-            "name": "file_path",
-            "description": "Path to the file",
-            "type": "string",
-            "required": True,
-        },
-    ],
-    output_type="bytes",
-)
-async def read_file(agent, task_id: str, file_path: str) -> bytes:
-    """
-    Read data from a file
-    """
-    return agent.workspace.read(task_id=task_id, path=file_path)
+async def read_latest_slot(agent, task_id: str, timestamp: int) -> int:
+    return 12345
